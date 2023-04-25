@@ -1,6 +1,6 @@
 ﻿using Domain.Models;
 
-namespace domain.IRepositories
+namespace Domain.IRepositories
 {
     public interface IDoctorRepository : IRepository<Doctor>
     {

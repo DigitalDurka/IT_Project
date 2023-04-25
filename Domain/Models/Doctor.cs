@@ -1,4 +1,4 @@
-﻿using Domain.Services
+﻿using Domain.Services;
 
 namespace Domain.Models
 {
