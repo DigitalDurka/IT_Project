@@ -1,7 +1,5 @@
 ﻿using Domain.Models;
 using Domain.IRepositories;
-using Domain.Services;
-using Domain;
 
 namespace Domain.Services;
 
