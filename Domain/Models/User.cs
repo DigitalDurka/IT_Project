@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +17,18 @@ namespace Domain
 
         public Role Role { get; set; }
 
-        public User(int id, string phone, string fio, Role role, string username, string password)
+        public string Username;
+
+        public string Password;
+
+        public User(string username, string password, int id, string phone, string fio, Role role)
         {
+            Username = username;
+            Password = password;
             Id = id;
             Phone = phone;
             FIO = fio;
             Role = role;
-
         }
 
     }
