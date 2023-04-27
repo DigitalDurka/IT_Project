@@ -1,18 +1,22 @@
 ﻿using Domain.Services;
+using Domain.Models;
+using Domain.Services;
 
 namespace Domain.Models
 {
     public class Doctor
     {
         public int Id;
+
         public string Fio;
-        public Specialization Specialization;
+
+        public Specialization Spec;
 
         public Doctor(int id, string fio, Specialization specialization)
         {
             Id = id;
             Fio = fio;
-            Specialization = specialization;
+            Spec = specialization;
         }
 
         public Result IsValid()
