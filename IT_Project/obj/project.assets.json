@@ -131,10 +131,12 @@
       "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
         "type": "package",
         "build": {
-          "build/_._": {}
+          "build/Microsoft.Extensions.ApiDescription.Server.props": {},
+          "build/Microsoft.Extensions.ApiDescription.Server.targets": {}
         },
         "buildMultiTargeting": {
-          "buildMultiTargeting/_._": {}
+          "buildMultiTargeting/Microsoft.Extensions.ApiDescription.Server.props": {},
+          "buildMultiTargeting/Microsoft.Extensions.ApiDescription.Server.targets": {}
         }
       },
       "Microsoft.Extensions.Caching.Abstractions/7.0.0": {
@@ -669,7 +671,7 @@
           "Swashbuckle.AspNetCore.SwaggerUI": "6.5.0"
         },
         "build": {
-          "build/_._": {}
+          "build/Swashbuckle.AspNetCore.props": {}
         }
       },
       "Swashbuckle.AspNetCore.Swagger/6.5.0": {
@@ -1938,7 +1940,8 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "7.0.5",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4",
-          "Npgsql.EntityFrameworkCore.PostgreSQL.Design": "1.1.0"
+          "Npgsql.EntityFrameworkCore.PostgreSQL.Design": "1.1.0",
+          "Swashbuckle.AspNetCore": "6.5.0"
         },
         "compile": {
           "bin/placeholder/Domain.dll": {}
@@ -6357,7 +6360,10 @@
       "Microsoft.EntityFrameworkCore.Design >= 7.0.5",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.5",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 7.0.4",
-      "Npgsql.EntityFrameworkCore.PostgreSQL.Design >= 1.1.0"
+      "Npgsql.EntityFrameworkCore.PostgreSQL.Design >= 1.1.0",
+      "Swashbuckle.AspNetCore >= 6.5.0",
+      "Swashbuckle.AspNetCore.Swagger >= 6.5.0",
+      "Swashbuckle.AspNetCore.SwaggerUI >= 6.5.0"
     ]
   },
   "packageFolders": {
@@ -6426,6 +6432,18 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL.Design": {
             "target": "Package",
             "version": "[1.1.0, )"
+          },
+          "Swashbuckle.AspNetCore": {
+            "target": "Package",
+            "version": "[6.5.0, )"
+          },
+          "Swashbuckle.AspNetCore.Swagger": {
+            "target": "Package",
+            "version": "[6.5.0, )"
+          },
+          "Swashbuckle.AspNetCore.SwaggerUI": {
+            "target": "Package",
+            "version": "[6.5.0, )"
           }
         },
         "imports": [
