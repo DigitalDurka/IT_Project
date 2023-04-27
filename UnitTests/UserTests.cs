@@ -31,8 +31,8 @@ public class UserTests
 
         var response = _userService.CreateUser(GetUser("Gigachad"));
 
-        Assert.False(response.Success);
-        Assert.Equal("User with that username is already exist", response.Error);
+        Assert.False(response.Success); // Ожидаем, что вернет ошибку
+        Assert.Equal("User with that username is already exist", response.Error); // Убеждаемся, что это она
     }
 
     [Fact]
