@@ -1,5 +1,6 @@
-﻿using Domain.Models;
-using Domain.IRepositories;
+﻿using Domain.IRepositories;
+using Domain.Models;
+using Domain.Services;
 
 namespace Domain.Services
 {
@@ -21,7 +22,7 @@ namespace Domain.Services
             if (!_docDB.IsValid(doctor))
                 return Result.Fail<IEnumerable<Schedule>>("Doctor is not valid");
 
-            return Result.Ok<IEnumerable<Schedule>>(_db.GetSheduleByDate(doctor, date));
+            return Result.Ok<IEnumerable<Schedule>>(_db.GetScheduleByDate(doctor, date));
         }
 
         public Result<Schedule> Add(Schedule schedule)
