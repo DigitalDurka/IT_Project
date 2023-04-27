@@ -1,6 +1,4 @@
-﻿using domain.IRepositories;
-using domain.Models;
-using BD.Convert;
+﻿using BD.Converters;
 using Domain.IRepositories;
 using Domain.Models;
 

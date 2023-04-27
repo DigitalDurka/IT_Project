@@ -1,7 +1,7 @@
 ﻿using Domain.Models;
 using BD.Models;
 
-namespace BD.Convert
+namespace BD.Converters
 {
     public static class UserConvert
     {

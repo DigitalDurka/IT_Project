@@ -1,6 +1,4 @@
 ﻿using Domain.Services;
-using Domain.Models;
-using Domain.Services;
 
 namespace Domain.Models
 {

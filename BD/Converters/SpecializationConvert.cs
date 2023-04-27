@@ -1,7 +1,7 @@
 ﻿using BD.Models;
 using Domain.Models;
 
-namespace BD.Convert
+namespace BD.Converters
 {
     public static class SpecializationConvert
     {

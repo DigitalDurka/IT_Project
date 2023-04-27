@@ -1,9 +1,10 @@
-﻿using Domain.Models;
+﻿using Domain.IRepositories;
+using Domain.Models;
 
 namespace Domain.IRepositories
 {
     public interface IScheduleRepository : IRepository<Schedule>
     {
-        IEnumerable<Schedule> GetSheduleByDate(Doctor doctor, DateOnly date);
+        IEnumerable<Schedule> GetScheduleByDate(Doctor doctor, DateOnly date);
     }
 }

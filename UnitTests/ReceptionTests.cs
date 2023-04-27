@@ -1,91 +1,36 @@
-﻿using Xunit;
-using Moq;
-using Domain;
-using System;
-using System.Collections.Generic;
+﻿using Domain.Models;
+using Domain.IRepositories;
 
-namespace ReceptionTests
+namespace Domain.Services
 {
-    public class ReceptionTests
+    public class ReceptionService
     {
-        private readonly ReceptionService _receptionService;
-        private readonly Mock<IDoctorRepository> _doctorRepository;
-        private readonly Mock<IReceptionRepository> _receptionRepostitory;
+        private IReceptionRepository _db;
+        private IDoctorRepository _docDB;
 
-        public ReceptionTests()
+
+        public ReceptionService(IReceptionRepository db, IDoctorRepository docDB)
         {
-            _receptionRepostitory = new Mock<IReceptionRepository>();
-            _receptionService = new ReceptionService(_receptionRepostitory.Object, _doctorRepository.Object);
+            _db = db;
+            _docDB = docDB;
         }
 
-        public Reception GetReception1()
+        public Result<Reception> CreateReception(Reception reception)
         {
-            return new Reception(DateTime.Now.AddMinutes(15), DateTime.Now.AddMinutes(30), 1, 1);
-        }
-        public Reception GetReception2()
-        {
-            return new Reception(DateTime.Now.AddMinutes(45), DateTime.Now.AddMinutes(60), 1, 1);
-        }
-        public Reception GetReception3()
-        {
-            return new Reception(DateTime.Now.AddMinutes(75), DateTime.Now.AddMinutes(90), 1, 1);
-        }
+            var doctor = _docDB.GetItem(reception.DoctorID);
+            var list = _db.GetReceptionByDoctor(doctor);
 
-        [Fact]
-        public void CreateReceptionSuccess()
-        {
-            List<Reception> test = new()
-            {
-                GetReception1(),
-                GetReception2()
-            };
+            if (list.Any(x => reception.StartTime < x.EndTime && reception.EndTime > x.StartTime))
+                return Result.Fail<Reception>("Doctor is busy in this date");
 
-            _doctorRepository.Setup(repository => repository.IsExists(It.Is<int>(id => id == 1))).Returns(true);
-            _doctorRepository.Setup(repository => repository.GetItem(It.Is<int>(id => id == 1))).Returns(new Doctor(1, "FIO", new Specialization(1, "Doctor")));
-            _receptionRepostitory.Setup(repository => repository.GetReceptionByDoctor(It.IsAny<Doctor>())).Returns(() => test);
-
-            var result = _receptionService.CreateReception(GetReception3());
-
-            Assert.True(result.Success);
+            _db.Create(reception);
+            return Result.Ok(reception);
         }
 
-        [Fact]
-        public void CreateReceptionFail()
+        public Result<IEnumerable<DateTime>> GetFreeBySpec(Specialization specialization, Schedule schedule)
         {
-            List<Reception> test = new()
-            {
-                GetReception1(),
-                GetReception3()
-            };
-
-            _doctorRepository.Setup(repository => repository.IsExists(It.Is<int>(id => id == 1))).Returns(true);
-            _doctorRepository.Setup(repository => repository.GetItem(It.Is<int>(id => id == 1))).Returns(new Doctor(1, "FIO", new Specialization(1, "Doctor")));
-            _receptionRepostitory.Setup(repository => repository.GetReceptionByDoctor(It.IsAny<Doctor>())).Returns(() => test);
-
-            var result = _receptionService.CreateReception(GetReception2());
-
-            Assert.True(result.IsFailure);
-            Assert.Equal("This doctor is busy on this date ", result.Error);
+            var reception = _db.GetFreeReceptionBySpec(specialization, schedule);
+            return Result.Ok(reception);
         }
-
-        [Fact]
-        public void CreateReceptionDoctorIsNotExists()
-        {
-            _doctorRepository.Setup(repository => repository.IsExists(It.Is<int>(id => id == 1))).Returns(false);
-            _doctorRepository.Setup(repository => repository.GetItem(It.Is<int>(id => id == 1))).Returns(new Doctor(1, "FIO", new Specialization(1, "Doctor")));
-
-            var result = _receptionService.CreateReception(GetReception1());
-
-            Assert.True(result.IsFailure);
-            Assert.Equal("Doctor is not exists ", result.Error);
-        }
-
-        [Fact]
-        public void GetFreeBySpecSuccess()
-        {
-            var x = _receptionService.GetFreeBySpec(new Specialization(1, "Doctor"), new Schedule(1, 1, DateTime.Today, DateTime.Today));
-            Assert.True(x.Success);
-        }
-
     }
 }
